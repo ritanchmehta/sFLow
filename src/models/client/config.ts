@@ -10,7 +10,7 @@ const client = new Client()
 
 const databases = new Databases(client);
 const account = new Account(client);
-const avatars = new Storage(client);
+const avatars = new Avatars(client);
 const storage = new Storage(client);
 
 export {client, databases, account, avatars, storage}
