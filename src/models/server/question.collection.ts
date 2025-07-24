@@ -1,5 +1,6 @@
 import {IndexType, Permission} from "node-appwrite"
 
+import waitForAttributesReady from "@/helpers/attributeCheck"
 import {db, questionCollection} from "../name"
 import {databases} from "./config"
 
@@ -8,10 +9,10 @@ export default async function createQuestionCollection() {
     //create collection
     await databases.createCollection(db, questionCollection, questionCollection, [
                                         Permission.read("any"),
-                                        Permission.read("Users"),
-                                        Permission.create("Users"),
-                                        Permission.update("Users"),
-                                        Permission.delete("Users"),
+                                        Permission.read("users"),
+                                        Permission.create("users"),
+                                        Permission.update("users"),
+                                        Permission.delete("users"),
                                     ])
     
     console.log("Question collection is created"); 
@@ -28,9 +29,13 @@ export default async function createQuestionCollection() {
 
     console.log("Question Attributes created");
 
-    // crete Indexes
+    await waitForAttributesReady(db, questionCollection, ["title", "content", "authorId", "tags", "attachmentId"]);
 
-    await Promise.all([
+    // await new Promise((resolve) => setTimeout(resolve, 5000)); //appwrite takes time to process attributes, so we need to wait for a few seconds for it to complete before accesing the attributes in the indexing
+
+    // create Indexes
+
+    try {await Promise.all([
         databases.createIndex(
             db,
             questionCollection,
@@ -46,6 +51,9 @@ export default async function createQuestionCollection() {
             IndexType.Fulltext,
             ["content"]
         ),
-    ])
+    ])}
+    catch(err){
+        console.error("Error creating index:", JSON.stringify(err, null, 2));
+    }
     
 }
