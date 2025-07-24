@@ -40,16 +40,17 @@ export default async function createQuestionCollection() {
             db,
             questionCollection,
             "title",
-            IndexType.Fulltext,  //fulltext indexes do not support sorting like asc
+            IndexType.Fulltext, 
             ["title"],
-            //['asc']
+            ['asc']
         ),
         databases.createIndex(
             db,
             questionCollection,
             "content",
             IndexType.Fulltext,
-            ["content"]
+            ["content"],
+            ['asc']
         ),
     ])}
     catch(err){
