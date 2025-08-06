@@ -2,7 +2,7 @@
 // whenever we use any hooks of react we need to define it as use client
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { useAuthStore } from "@/store/Auth"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import React from "react"
 
 const Layout = ({children}: {children: React.ReactNode}) => {
@@ -20,7 +20,7 @@ const Layout = ({children}: {children: React.ReactNode}) => {
     }
 
     return (
-        <div className="relative flex min-h-screen flex-col items-center justify-center py-12">
+        <div className="relative flex min-h-screen flex-col items-center justify-center py-12 bg-neutral-900">
             <BackgroundBeams />
             <div className="relative">{children}</div>
         </div>
