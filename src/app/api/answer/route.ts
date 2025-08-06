@@ -47,7 +47,7 @@ export async function DELETE(request: NextRequest){
         //decrease the reputation 
         const prefs = await users.getPrefs<UserPrefs>(answer.authorId)
         await users.updatePrefs(answer.authorId, {
-            reputation: Number(prefs.reputation) + 1
+            reputation: Number(prefs.reputation) - 1
         })
 
         return NextResponse.json(
@@ -58,7 +58,7 @@ export async function DELETE(request: NextRequest){
     } catch (error: any) {
         return NextResponse.json(
             {
-                error: error?.message || "Error creating answer"
+                error: error?.message || "Error deleting the answer"
             },
             {
                 status: error?.status || error?.code || 500
