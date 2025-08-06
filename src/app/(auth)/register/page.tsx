@@ -27,7 +27,7 @@ const LabelInputContainer = ({
     return <div className={cn("flex w-full flex-col space-y-2", className)}>{children}</div>;
 };
 
-function RegisterPage() {
+export default function Register() {
     const {createAccount, login} = useAuthStore();
     const [isLoading, setIsLoading] = React.useState(false)
     const [error, setError] = React.useState("")
@@ -44,11 +44,11 @@ function RegisterPage() {
         //validate data
         if(!firstname || !lastname || !email || !password){
             setError(()=> "Please fill all fields")
-            return
+            return;
         }
         // call the store
-        setIsLoading(true)
-        setError("")
+        setIsLoading(()=>true)
+        setError(()=>"")
 
         const response= await createAccount(
             `${firstname} ${lastname}`,
@@ -71,15 +71,15 @@ function RegisterPage() {
     return (
         <div className="mx-auto w-full max-w-md rounded-none border border-solid border-white/30 bg-white p-4 shadow-input dark:bg-black md:rounded-2xl md:p-8">
             <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
-                Welcome to Riverflow
+                Welcome to sflow
             </h2>
             <p className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
-                Signup with riverflow if you you don&apos;t have an account.
+                Signup with sflow if you you don&apos;t have an account.
                 <br /> If you already have an account,{" "}
                 <Link href="/login" className="text-orange-500 hover:underline">
                     login
                 </Link>{" "}
-                to riverflow
+                to sflow
             </p>
 
             {error && (
@@ -89,11 +89,11 @@ function RegisterPage() {
                 <div className="mb-4 flex flex-col space-y-2 md:flex-row md:space-x-2 md:space-y-0">
                     <LabelInputContainer>
                         <Label htmlFor="firstname">First name</Label>
-                        <Input className="text-black" id="firstname" name="firstname" placeholder="Tyler" type="text" />
+                        <Input className="text-black" id="firstname" name="firstname" placeholder="first name" type="text" />
                     </LabelInputContainer>
                     <LabelInputContainer>
                         <Label htmlFor="lastname">Last name</Label>
-                        <Input className="text-black"  id="lastname" name="lastname" placeholder="Durden" type="text" />
+                        <Input className="text-black"  id="lastname" name="lastname" placeholder="last name" type="text" />
                     </LabelInputContainer>
                 </div>
                 <LabelInputContainer className="mb-4">
@@ -150,5 +150,3 @@ function RegisterPage() {
         </div>
     );
 }
-
-export default RegisterPage

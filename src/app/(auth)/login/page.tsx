@@ -27,7 +27,7 @@ const LabelInputContainer = ({
     return <div className={cn("flex w-full flex-col space-y-2", className)}>{children}</div>;
 };
 
-function LoginPage() {
+export default function LoginPage() {
     const {login} = useAuthStore()
     const [isLoading, setIsLoading] = React.useState(false)
     const [error, setError] = React.useState("")
@@ -43,7 +43,7 @@ function LoginPage() {
         //validation
         if(!email || !password){
             setError(()=> "Please fill all fields")
-            return
+            return;
         }
 
         //handle loading and error
@@ -61,15 +61,15 @@ function LoginPage() {
     return (
         <div className="mx-auto w-full max-w-md rounded-none border border-solid border-white/30 bg-white p-4 shadow-input dark:bg-black md:rounded-2xl md:p-8">
             <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
-                Login to Riverflow
+                Login to sflow
             </h2>
             <p className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
-                Login to riverflow
+                Login to sflow
                 <br /> If you don&apos;t have an account,{" "}
                 <Link href="/register" className="text-orange-500 hover:underline">
                     register
                 </Link>{" "}
-                with riverflow
+                with sflow
             </p>
 
             {error && (
@@ -82,7 +82,7 @@ function LoginPage() {
                     className="text-black"
                         id="email"
                         name="email"
-                        placeholder="projectmayhem@fc.com"
+                        placeholder="example@sflow.com"
                         type="email"
                     />
                 </LabelInputContainer>
@@ -130,5 +130,3 @@ function LoginPage() {
         </div>
     );
 }
-
-export default LoginPage
